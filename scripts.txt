@@ -1,1 +1,5 @@
-awk '{s+=$1} END {print "Average build time: " s/NR; }' /var/log/emerge.log | sort -n -k1 | tail -15
+#Discovering the problematic build times (maybe report a bug?). I want to point out which packages build times are bigger than 5400 seconds (10min):
+qlist -I | xargs qlop -t | awk '{ if ($2 > 5400) printf("%s  %dd:%dh:%dm:%ds\n", $1, $2 / 86400, ($2 % 86400) / 3600, ($2 % 3600) / 60, $2 % 60); }'
+
+#https://forums.gentoo.org/viewtopic-t-1078212.html
+
