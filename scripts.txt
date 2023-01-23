@@ -1,0 +1,1 @@
+awk '{s+=$1} END {print "Average build time: " s/NR; }' /var/log/emerge.log | sort -n -k1 | tail -15
